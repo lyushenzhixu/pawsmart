@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PawSmart — 产品评审演示</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --primary: #FF7A3D;
+    --primary-light: #FFF3ED;
+    --primary-dark: #E5601A;
+    --accent: #2D3B8A;
+    --accent-light: #EEF0FF;
+    --success: #22C55E;
+    --success-light: #F0FDF4;
+    --warning: #FCD34D;
+    --warning-light: #FFFBEB;
+    --text-primary: #1A1A1A;
+    --text-secondary: #6B7280;
+    --bg: #FAFAFA;
+    --surface: #FFFFFF;
+    --border: #E5E7EB;
+  }
+
+  body {
+    font-family: 'DM Sans', 'Noto Sans SC', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  /* ─── Sidebar ─── */
+  .sidebar {
+    position: fixed; left:0; top:0; bottom:0; width: 280px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+  .sidebar.collapsed { transform: translateX(-280px); }
+
+  .sidebar-header {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-header h1 {
+    font-size: 20px; font-weight: 700; color: var(--primary);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sidebar-header h1 span { font-size: 24px; }
+  .sidebar-header p {
+    font-size: 12px; color: var(--text-secondary); margin-top: 4px;
+  }
+
+  .sidebar-nav {
+    flex: 1; overflow-y: auto; padding: 12px 0;
+  }
+  .sidebar-nav::-webkit-scrollbar { width: 4px; }
+  .sidebar-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .nav-group { margin-bottom: 8px; }
+  .nav-group-title {
+    padding: 8px 20px 4px;
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-secondary);
+  }
+  .nav-item {
+    padding: 8px 20px; cursor: pointer;
+    font-size: 13px; font-weight: 500; color: var(--text-secondary);
+    display: flex; align-items: center; gap: 10px;
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+  }
+  .nav-item:hover { background: var(--primary-light); color: var(--text-primary); }
+  .nav-item.active {
+    background: var(--primary-light); color: var(--primary);
+    border-left-color: var(--primary); font-weight: 600;
+  }
+  .nav-item .num {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--border); color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; flex-shrink: 0;
+  }
+  .nav-item.active .num { background: var(--primary); color: white; }
+
+  .sidebar-footer {
+    padding: 16px 20px; border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-secondary); text-align: center;
+  }
+
+  /* ─── Main Area ─── */
+  .main {
+    margin-left: 280px; height: 100vh;
+    display: flex; flex-direction: column;
+    transition: margin-left 0.3s ease;
+  }
+  .main.expanded { margin-left: 0; }
+
+  /* Top bar */
+  .topbar {
+    height: 56px; background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 24px;
+    gap: 16px; flex-shrink: 0;
+  }
+  .topbar-toggle {
+    width: 36px; height: 36px; border-radius: 8px;
+    border: 1px solid var(--border); background: white;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--text-secondary);
+  }
+  .topbar-toggle:hover { background: var(--primary-light); color: var(--primary); }
+
+  .topbar-breadcrumb {
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .topbar-breadcrumb strong { color: var(--text-primary); font-weight: 600; }
+
+  .topbar-actions { margin-left: auto; display: flex; gap: 8px; }
+  .topbar-btn {
+    padding: 6px 14px; border-radius: 8px; font-size: 12px;
+    font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+    background: white; color: var(--text-secondary);
+    transition: all 0.15s;
+  }
+  .topbar-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .topbar-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  .mode-indicator {
+    font-size: 11px; padding: 4px 10px; border-radius: 6px;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .mode-indicator.present { background: var(--primary-light); color: var(--primary); }
+  .mode-indicator.explore { background: var(--accent-light); color: var(--accent); }
+
+  /* ─── Content Area ─── */
+  .content {
+    flex: 1; overflow: hidden; display: flex;
+    position: relative;
+  }
+
+  /* ─── Slide View (Presentation Mode) ─── */
+  .slide-view {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 40px; gap: 48px; overflow-y: auto; overflow-x: hidden;
+    background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 50%, #f0f0f0 100%);
+  }
+
+  .phone-frame {
+    width: 280px; min-width: 280px;
+    background: white;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .phone-frame:hover { transform: translateY(-4px); }
+  .phone-inner {
+    border-radius: 30px; overflow: hidden;
+    background: white;
+  }
+  .phone-inner img {
+    width: 100%; display: block;
+  }
+  .phone-notch {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 28px; background: black; border-radius: 0 0 16px 16px;
+    z-index: 10;
+  }
+  .phone-label {
+    text-align: center; margin-top: 12px;
+    font-size: 12px; font-weight: 600; color: var(--text-secondary);
+  }
+
+  .slide-info {
+    max-width: 420px; flex-shrink: 1;
+  }
+  .slide-phase {
+    display: inline-block; padding: 4px 12px; border-radius: 8px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 12px;
+  }
+  .slide-phase.onboarding { background: var(--primary-light); color: var(--primary); }
+  .slide-phase.setup { background: var(--accent-light); color: var(--accent); }
+  .slide-phase.conversion { background: var(--warning-light); color: #92700C; }
+  .slide-phase.main { background: var(--success-light); color: #166534; }
+  .slide-phase.ai { background: #F0E7FF; color: #6B21A8; }
+  .slide-phase.profile { background: #FFF1F2; color: #BE123C; }
+  .slide-phase.empty { background: #F0F9FF; color: #0369A1; }
+
+  .slide-title {
+    font-size: 28px; font-weight: 700; line-height: 1.2;
+    margin-bottom: 8px; color: var(--text-primary);
+  }
+  .slide-subtitle {
+    font-size: 15px; color: var(--text-secondary); line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .slide-features { list-style: none; }
+  .slide-features li {
+    padding: 8px 0; font-size: 14px; line-height: 1.5;
+    display: flex; align-items: flex-start; gap: 10px;
+    color: var(--text-primary);
+  }
+  .slide-features li::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--primary); margin-top: 7px; flex-shrink: 0;
+  }
+  .slide-features li small {
+    display: block; color: var(--text-secondary); font-size: 12px; margin-top: 2px;
+  }
+
+  .slide-tag {
+    display: inline-block; padding: 3px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 600; margin-right: 6px; margin-bottom: 4px;
+  }
+  .slide-tag.free { background: var(--success-light); color: #166534; }
+  .slide-tag.premium { background: var(--primary-light); color: var(--primary); }
+  .slide-tag.new { background: var(--accent-light); color: var(--accent); }
+  .slide-tag.v11 { background: #F0F9FF; color: #0369A1; }
+
+  .slide-callout {
+    margin-top: 20px; padding: 14px 16px;
+    background: var(--primary-light); border-radius: 12px;
+    border-left: 3px solid var(--primary);
+  }
+  .slide-callout-title {
+    font-size: 12px; font-weight: 700; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
+  }
+  .slide-callout p { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+
+  .slide-metrics {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;
+  }
+  .metric-card {
+    padding: 12px; border-radius: 10px;
+    background: white; border: 1px solid var(--border);
+  }
+  .metric-card .value {
+    font-size: 20px; font-weight: 700; color: var(--primary);
+  }
+  .metric-card .label {
+    font-size: 11px; color: var(--text-secondary); margin-top: 2px;
+  }
+
+  /* Compare view (empty states) */
+  .phone-pair {
+    display: flex; gap: 24px; align-items: flex-start;
+  }
+  .phone-frame.small { width: 220px; min-width: 220px; }
+  .phone-frame.small .phone-inner { border-radius: 26px; }
+
+  /* ─── Navigation Arrows ─── */
+  .nav-arrow {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    width: 48px; height: 48px; border-radius: 50%;
+    background: white; border: 1px solid var(--border);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: var(--text-secondary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.2s; z-index: 50;
+  }
+  .nav-arrow:hover { background: var(--primary); color: white; border-color: var(--primary); }
+  .nav-arrow.prev { left: 296px; }
+  .nav-arrow.next { right: 16px; }
+  .main.expanded .nav-arrow.prev { left: 16px; }
+
+  /* ─── Progress Bar ─── */
+  .progress-bar {
+    height: 3px; background: var(--border); flex-shrink: 0;
+  }
+  .progress-fill {
+    height: 100%; background: var(--primary);
+    transition: width 0.3s ease;
+  }
+
+  /* ─── Overview Grid Mode ─── */
+  .overview-grid {
+    flex: 1; overflow-y: auto; padding: 40px;
+    display: none;
+  }
+  .overview-grid.active { display: block; }
+  .slide-view.hidden { display: none; }
+
+  .grid-section-title {
+    font-size: 14px; font-weight: 700; color: var(--text-primary);
+    margin-bottom: 16px; margin-top: 32px;
+    padding-bottom: 8px; border-bottom: 2px solid var(--primary);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .grid-section-title:first-child { margin-top: 0; }
+  .grid-section-title .badge {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: var(--primary-light); color: var(--primary); font-weight: 600;
+  }
+
+  .screen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px; margin-bottom: 16px;
+  }
+  .screen-thumb {
+    cursor: pointer; border-radius: 16px; overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.2s; background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .screen-thumb:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+  .screen-thumb img { width: 100%; display: block; }
+  .screen-thumb-label {
+    padding: 8px 10px; font-size: 11px; font-weight: 600;
+    color: var(--text-secondary); text-align: center;
+  }
+
+  /* ─── Keyboard hints ─── */
+  .keyboard-hints {
+    position: fixed; bottom: 16px; right: 16px; z-index: 200;
+    display: flex; gap: 6px; opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .keyboard-hints:hover { opacity: 1; }
+  .kbd {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 28px; height: 24px; padding: 0 6px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 4px; font-size: 11px; font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .kbd-label { font-size: 10px; color: var(--text-secondary); margin: 0 4px; }
+
+  /* ─── Diagram: Full-width canvas ─── */
+  .diagram-canvas {
+    width: 100%; display: flex; flex-direction: column; align-items: center;
+    padding: 0 40px 60px;
+  }
+  .diagram-canvas .diagram-title-row {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 6px; align-self: flex-start;
+  }
+  .diagram-canvas .diagram-title-row h2 { font-size: 22px; font-weight: 700; }
+  .diagram-canvas .diagram-desc {
+    font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; align-self: flex-start; max-width: 700px; line-height: 1.6;
+  }
+
+  /* ─── Persona Cards ─── */
+  .persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; max-width: 900px; }
+  .persona-card {
+    background: white; border-radius: 16px; padding: 24px;
+    border: 1px solid var(--border); position: relative; overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .persona-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .persona-card.primary { border-color: var(--primary); }
+  .persona-card .share-badge {
+    position: absolute; top: 16px; right: 16px;
+    padding: 3px 10px; border-radius: 8px; font-size: 12px; font-weight: 700;
+  }
+  .persona-card.primary .share-badge { background: var(--primary-light); color: var(--primary); }
+  .persona-card:not(.primary) .share-badge { background: var(--accent-light); color: var(--accent); }
+  .persona-avatar {
+    width: 48px; height: 48px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; font-size: 24px; margin-bottom: 12px;
+  }
+  .persona-card.primary .persona-avatar { background: var(--primary-light); }
+  .persona-card:nth-child(2) .persona-avatar { background: #FEF3C7; }
+  .persona-card:nth-child(3) .persona-avatar { background: #DBEAFE; }
+  .persona-card:nth-child(4) .persona-avatar { background: #F3E8FF; }
+  .persona-name { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+  .persona-demo { font-size: 12px; color: var(--text-secondary); margin-bottom: 10px; }
+  .persona-need {
+    font-size: 13px; line-height: 1.5; color: var(--text-primary);
+    padding: 8px 12px; background: var(--bg); border-radius: 8px; margin-bottom: 10px;
+  }
+  .persona-need strong { color: var(--primary); }
+  .persona-traits { display: flex; flex-wrap: wrap; gap: 4px; }
+  .persona-trait {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: var(--bg); color: var(--text-secondary); font-weight: 500;
+  }
+
+  /* ─── Architecture Diagram ─── */
+  .arch-wrapper { width: 100%; max-width: 960px; }
+  .arch-top-bar {
+    display: flex; align-items: center; justify-content: center; gap: 32px;
+    margin-bottom: 20px;
+  }
+  .arch-tab-icon {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    cursor: pointer; transition: transform 0.2s;
+  }
+  .arch-tab-icon:hover { transform: scale(1.05); }
+  .arch-tab-circle {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 700; color: white;
+  }
+  .arch-tab-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+  .arch-tab-icon.active .arch-tab-label { color: var(--primary); font-weight: 700; }
+
+  .arch-columns {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .arch-column {
+    background: white; border-radius: 16px; padding: 16px;
+    border: 1px solid var(--border); min-height: 240px;
+  }
+  .arch-column.highlight { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+  .arch-col-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+    padding-bottom: 10px; border-bottom: 2px solid var(--border);
+  }
+  .arch-col-header.h-orange { border-bottom-color: var(--primary); }
+  .arch-col-header.h-blue { border-bottom-color: var(--accent); }
+  .arch-col-header.h-purple { border-bottom-color: #7C3AED; }
+  .arch-col-header.h-rose { border-bottom-color: #E11D48; }
+  .arch-col-icon { font-size: 18px; }
+  .arch-col-title { font-size: 13px; font-weight: 700; }
+  .arch-feat {
+    padding: 6px 0; font-size: 12px; color: var(--text-primary);
+    display: flex; align-items: center; gap: 6px; line-height: 1.4;
+  }
+  .arch-feat .dot {
+    width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+  }
+  .arch-feat .dot.orange { background: var(--primary); }
+  .arch-feat .dot.blue { background: var(--accent); }
+  .arch-feat .dot.purple { background: #7C3AED; }
+  .arch-feat .dot.rose { background: #E11D48; }
+  .arch-feat .badge-sm {
+    font-size: 9px; padding: 1px 5px; border-radius: 3px;
+    font-weight: 600; margin-left: auto; flex-shrink: 0;
+  }
+  .arch-feat .badge-sm.free { background: var(--success-light); color: #166534; }
+  .arch-feat .badge-sm.pro { background: var(--primary-light); color: var(--primary); }
+  .arch-feat .badge-sm.v11 { background: #F0F9FF; color: #0369A1; }
+
+  .arch-infra {
+    margin-top: 16px; padding: 14px 20px;
+    background: white; border-radius: 12px;
+    border: 1px dashed var(--border);
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+  }
+  .arch-infra-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--text-secondary); font-weight: 500;
+  }
+  .arch-infra-item .icon { font-size: 16px; }
+
+  /* ─── Journey Map ─── */
+  .journey-wrapper { width: 100%; max-width: 960px; }
+  .journey-track {
+    display: flex; gap: 0; position: relative; overflow-x: auto;
+    padding-bottom: 16px;
+  }
+  .journey-track::-webkit-scrollbar { height: 4px; }
+  .journey-track::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .journey-phase {
+    flex: 1; min-width: 155px; position: relative;
+  }
+  .journey-phase:not(:last-child)::after {
+    content: ''; position: absolute; right: -1px; top: 38px;
+    width: 2px; height: calc(100% - 58px); background: var(--border);
+    z-index: 1;
+  }
+  .journey-phase-header {
+    padding: 8px 12px; border-radius: 10px 10px 0 0;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; text-align: center;
+  }
+  .journey-phase-header.jp-discover { background: #DBEAFE; color: #1E40AF; }
+  .journey-phase-header.jp-onboard { background: var(--primary-light); color: var(--primary); }
+  .journey-phase-header.jp-convert { background: var(--warning-light); color: #92700C; }
+  .journey-phase-header.jp-engage { background: var(--success-light); color: #166534; }
+  .journey-phase-header.jp-habit { background: #F3E8FF; color: #6B21A8; }
+  .journey-phase-header.jp-retain { background: #FFF1F2; color: #BE123C; }
+
+  .journey-body {
+    padding: 12px; border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 10px 10px; background: white; min-height: 280px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .journey-section-label {
+    font-size: 9px; font-weight: 600; text-transform: uppercase;
+    color: var(--text-secondary); letter-spacing: 0.5px; margin-top: 4px;
+  }
+  .journey-action {
+    font-size: 11px; color: var(--text-primary); line-height: 1.4;
+    padding: 4px 8px; background: var(--bg); border-radius: 6px;
+  }
+  .journey-emotion {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 600;
+  }
+  .journey-emotion .emoji { font-size: 16px; }
+  .journey-touchpoint {
+    font-size: 10px; color: var(--text-secondary); font-style: italic;
+    padding: 3px 8px; border-left: 2px solid var(--border);
+  }
+  .journey-pain {
+    font-size: 10px; color: #DC2626; padding: 3px 8px;
+    background: #FEF2F2; border-radius: 4px;
+  }
+  .journey-arrow-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 4px; padding: 12px 0 4px;
+  }
+  .journey-arrow-row .arrow-line {
+    flex: 1; height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 1px;
+  }
+  .journey-arrow-row .arrow-head {
+    font-size: 14px; color: var(--accent); font-weight: 700;
+  }
+  .journey-arrow-label {
+    text-align: center; font-size: 10px; color: var(--text-secondary);
+    font-weight: 500; margin-bottom: 8px;
+  }
+
+  /* When slide-view contains a diagram, align to top */
+  .slide-view:has(.diagram-canvas) {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  /* ─── Animations ─── */
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes phoneIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .slide-view .slide-info { animation: slideIn 0.4s ease; }
+  .slide-view .phone-frame { animation: phoneIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+
+  /* ─── Flow Arrow ─── */
+  .flow-arrow {
+    display: flex; align-items: center; gap: 8px; margin-top: 16px;
+    font-size: 12px; color: var(--text-secondary); font-weight: 500;
+  }
+  .flow-arrow svg { flex-shrink: 0; }
+  .flow-arrow .dest {
+    color: var(--primary); font-weight: 600; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 2px;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1200px) {
+    .slide-view { flex-direction: column; padding: 24px; gap: 24px; }
+    .slide-info { max-width: 100%; }
+    .phone-frame { width: 200px; min-width: 200px; }
+  }
+
+  /* ─── Print ─── */
+  @media print {
+    .sidebar, .topbar, .nav-arrow, .keyboard-hints, .progress-bar { display: none !important; }
+    .main { margin-left: 0 !important; }
+    .slide-view { break-inside: avoid; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h1><span>🐾</span> PawSmart</h1>
+    <p>产品评审 · v1.0 MVP · 2026-03-29</p>
+  </div>
+  <nav class="sidebar-nav" id="sidebarNav"></nav>
+  <div class="sidebar-footer">
+    ← → 方向键翻页 &nbsp;|&nbsp; G 全览 &nbsp;|&nbsp; F 全屏
+  </div>
+</aside>
+
+<!-- Main -->
+<div class="main" id="main">
+  <div class="topbar">
+    <button class="topbar-toggle" id="toggleSidebar" title="Toggle sidebar">☰</button>
+    <span class="topbar-breadcrumb" id="breadcrumb"></span>
+    <div class="topbar-actions">
+      <button class="topbar-btn active" id="btnPresent" onclick="setMode('present')">演示模式</button>
+      <button class="topbar-btn" id="btnOverview" onclick="setMode('overview')">全览模式</button>
+    </div>
+    <span class="mode-indicator present" id="modeTag">PRESENT</span>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="content">
+    <div class="slide-view" id="slideView"></div>
+    <div class="overview-grid" id="overviewGrid"></div>
+  </div>
+</div>
+
+<!-- Nav arrows -->
+<button class="nav-arrow prev" id="prevBtn" onclick="navigate(-1)">‹</button>
+<button class="nav-arrow next" id="nextBtn" onclick="navigate(1)">›</button>
+
+<!-- Keyboard hints -->
+<div class="keyboard-hints">
+  <span class="kbd">←</span><span class="kbd-label">上一页</span>
+  <span class="kbd">→</span><span class="kbd-label">下一页</span>
+  <span class="kbd">G</span><span class="kbd-label">全览</span>
+  <span class="kbd">F</span><span class="kbd-label">全屏</span>
+</div>
+
+<script>
+// ────────────────────────────────────────
+// SLIDE DATA
+// ────────────────────────────────────────
+const SLIDES = [
+  // ─── Title Slide ───
+  {
+    id: 'title',
+    title: 'PawSmart',
+    subtitle: '"AI看懂你的狗" — 用视觉AI帮助狗主人理解和训练他们的狗',
+    phase: 'main', phaseLabel: '产品评审',
+    screens: [],
+    features: [
+      { text: '视觉AI差异化: 品种识别 + 行为分析，竞品没有的能力' },
+      { text: '个性化AI训练助手: 基于宠物档案的智能对话，不是通用聊天' },
+      { text: '慷慨的免费层: 品种识别3次/天，AI助手5条/天，7节基础课程' },
+      { text: 'AI动态训练计划: 根据进度自动调整的4-8周训练方案' },
+    ],
+    callout: { title: '市场机会', text: '$11.7B市场 (2026)，CAGR 13.5%。头部竞品 Dogo/Woofz/Puppr 仍无AI能力，12-18个月窗口期。' },
+    metrics: [
+      { value: '$11.7B', label: '2026 市场规模' },
+      { value: '13.5%', label: 'CAGR' },
+      { value: '18', label: '设计页面' },
+      { value: '4 Tabs', label: '产品架构' },
+    ]
+  },
+
+  // ─── 产品策略: 用户画像 ───
+  {
+    id: 'personas', group: 'strategy',
+    type: 'persona',
+    title: '目标用户画像',
+    subtitle: '基于竞品分析和市场调研，定义4类核心用户群体，以"新手狗主人"为主要目标用户。',
+    phase: 'main', phaseLabel: '产品策略',
+    screens: [],
+    personas: [
+      {
+        emoji: '🐶', name: '新手狗主人 Sarah', demo: '25-35岁 · 刚养狗0-6个月', share: '45%',
+        primary: true,
+        need: '刚领养了一只小狗，<strong>完全不知道怎么训练</strong>，希望有人手把手教',
+        traits: ['搜索"puppy training"', '愿意付费但怕被坑', '每天可投入10-15分钟', '需要即时反馈']
+      },
+      {
+        emoji: '🎓', name: '进阶训练者 Mike', demo: '28-40岁 · 养狗1-3年', share: '30%',
+        primary: false,
+        need: '基本服从训练完成，想学<strong>高级技巧和行为纠正</strong>',
+        traits: ['已用过其他App', '关注科学训练法', '希望个性化计划', '对AI功能好奇']
+      },
+      {
+        emoji: '🐕‍🦺', name: '问题行为焦虑者 Lisa', demo: '30-45岁 · 有行为问题的狗', share: '15%',
+        primary: false,
+        need: '狗有<strong>吠叫/扑人/分离焦虑</strong>等问题，急需解决方案',
+        traits: ['痛点最强烈', '付费意愿最高', '需要专业指导', '可能同时找线下训练师']
+      },
+      {
+        emoji: '📱', name: '科技爱好者 Tom', demo: '22-30岁 · 对AI产品感兴趣', share: '10%',
+        primary: false,
+        need: '被<strong>AI识别品种</strong>功能吸引下载，可能转化为长期用户',
+        traits: ['社交传播力强', 'Try everything once', '对新功能敏感', '可能流失但会推荐']
+      }
+    ]
+  },
+
+  // ─── 产品策略: 功能架构图 ───
+  {
+    id: 'architecture', group: 'strategy',
+    type: 'architecture',
+    title: '功能架构图',
+    subtitle: '4个Tab模块 + AI能力层 + 基础设施层，MVP范围以橙色标注。',
+    phase: 'main', phaseLabel: '产品策略',
+    screens: [],
+    archTabs: [
+      { icon: '🏠', label: '首页', color: '#FF7A3D' },
+      { icon: '📖', label: '课程', color: '#2D3B8A' },
+      { icon: '✨', label: 'AI中心', color: '#7C3AED' },
+      { icon: '👤', label: '档案', color: '#E11D48' }
+    ],
+    archColumns: [
+      {
+        title: '首页 Home', icon: '🏠', headerClass: 'h-orange', dotClass: 'orange',
+        features: [
+          { text: '今日问候 + 宠物名', badge: '' },
+          { text: '训练连续天数条', badge: '' },
+          { text: '每日3个训练任务', badge: '' },
+          { text: '快捷工具（扫描/聊天/计划）', badge: '' },
+          { text: '推荐课程卡片', badge: '' },
+          { text: '训练完成庆祝弹窗', badge: 'free' }
+        ]
+      },
+      {
+        title: '课程 Courses', icon: '📖', headerClass: 'h-blue', dotClass: 'blue',
+        features: [
+          { text: '分类标签筛选（5类）', badge: '' },
+          { text: '课程卡片网格', badge: '' },
+          { text: '7节免费基础课程', badge: 'free' },
+          { text: '60+ 付费视频课程', badge: 'pro' },
+          { text: '训练计时器 + 次数', badge: '' },
+          { text: '步骤进度追踪', badge: '' }
+        ]
+      },
+      {
+        title: 'AI 中心', icon: '✨', headerClass: 'h-purple', dotClass: 'purple',
+        features: [
+          { text: 'AI品种识别（Top-1≥85%）', badge: 'free' },
+          { text: 'AI训练助手对话', badge: 'free' },
+          { text: '个性化训练计划生成', badge: 'pro' },
+          { text: 'AI视频行为分析', badge: 'v11' },
+          { text: '情绪识别', badge: 'v11' }
+        ]
+      },
+      {
+        title: '宠物档案', icon: '👤', headerClass: 'h-rose', dotClass: 'rose',
+        features: [
+          { text: '宠物头像 + 基本信息', badge: '' },
+          { text: '训练统计（课程/天数/徽章）', badge: '' },
+          { text: '成就系统', badge: '' },
+          { text: '训练日历热力图', badge: '' },
+          { text: '设置 / 订阅管理', badge: '' },
+          { text: '多宠物切换', badge: 'v11' }
+        ]
+      }
+    ],
+    archInfra: [
+      { icon: '🧠', text: 'Core ML / Vision AI' },
+      { icon: '💬', text: 'LLM (GPT-4o)' },
+      { icon: '☁️', text: 'CloudKit + Firebase' },
+      { icon: '💰', text: 'StoreKit 2 订阅' }
+    ]
+  },
+
+  // ─── 产品策略: 用户旅程图 ───
+  {
+    id: 'journey', group: 'strategy',
+    type: 'journey',
+    title: '用户旅程地图',
+    subtitle: '从发现到留存的6个阶段，标注关键触点、用户情绪和痛点机会。',
+    phase: 'main', phaseLabel: '产品策略',
+    screens: [],
+    journeyPhases: [
+      {
+        name: '发现', headerClass: 'jp-discover',
+        actions: ['App Store搜索"dog training"', '看到品种识别截图'],
+        emotion: { emoji: '🤔', text: '好奇', color: '#2563EB' },
+        touchpoint: 'ASO + 截图差异化',
+        pain: '同类App太多，难以区分'
+      },
+      {
+        name: '引导', headerClass: 'jp-onboard',
+        actions: ['3页Welcome展示核心价值', '拍照识别品种 — "哇"时刻'],
+        emotion: { emoji: '😮', text: '惊喜', color: '#F59E0B' },
+        touchpoint: '品种识别首次体验',
+        pain: '如果识别不准会立刻流失'
+      },
+      {
+        name: '转化', headerClass: 'jp-convert',
+        actions: ['完成宠物资料设置', '看到个性化训练推荐', '软付费墙（可跳过）'],
+        emotion: { emoji: '🤨', text: '评估', color: '#92700C' },
+        touchpoint: '付费墙时机和免费内容量',
+        pain: '如果免费内容太少会放弃'
+      },
+      {
+        name: '激活', headerClass: 'jp-engage',
+        actions: ['完成第一个训练课程', '获得庆祝弹窗 + 首次徽章', '与AI助手对话'],
+        emotion: { emoji: '😊', text: '满足', color: '#16A34A' },
+        touchpoint: '训练完成庆祝动效',
+        pain: '课程太长/太难会中途放弃'
+      },
+      {
+        name: '习惯', headerClass: 'jp-habit',
+        actions: ['每日训练打卡', '连续天数增长', 'AI调整训练计划'],
+        emotion: { emoji: '💪', text: '自信', color: '#7C3AED' },
+        touchpoint: '连续打卡 + 进度可视化',
+        pain: '忘记打开App（需要推送）'
+      },
+      {
+        name: '留存', headerClass: 'jp-retain',
+        actions: ['解锁高级课程', '看到宠物成长档案', '推荐给朋友'],
+        emotion: { emoji: '❤️', text: '忠诚', color: '#E11D48' },
+        touchpoint: '成就系统 + 社交分享',
+        pain: '训练目标达成后动力下降'
+      }
+    ]
+  },
+
+  // ─── Onboarding ───
+  {
+    id: 'welcome1', group: 'onboarding',
+    title: 'Welcome Page 1',
+    subtitle: '首次打开App，展示核心价值："AI看懂你的狗"。建立品牌认知和情感连接。',
+    phase: 'onboarding', phaseLabel: '引导流程',
+    screens: ['8mQ4l'],
+    features: [
+      { text: '品牌插画区域占屏幕50%，强视觉冲击' },
+      { text: '"AI Understands Your Dog" 核心价值一句话' },
+      { text: '底部翻页圆点指示器 + Skip按钮' },
+    ],
+    flow: { text: '下一步: Welcome 2', target: 'welcome2' },
+    callout: { title: '设计决策', text: 'Skip 按钮点击后直接跳到品种扫描（Screen 4），不跳到首页。宠物设置是必选流程。' }
+  },
+  {
+    id: 'welcome2', group: 'onboarding',
+    title: 'Welcome Page 2',
+    subtitle: '"每天10分钟，看到改变" — 降低用户的时间顾虑，强调训练的轻量化。',
+    phase: 'onboarding', phaseLabel: '引导流程',
+    screens: ['GtXd2'],
+    features: [
+      { text: '训练场景插画，展示人狗互动' },
+      { text: '强调时间承诺: 每天只需10分钟' },
+      { text: '副标题: 科学正向训练方法' },
+    ],
+    flow: { text: '下一步: Welcome 3', target: 'welcome3' }
+  },
+  {
+    id: 'welcome3', group: 'onboarding',
+    title: 'Welcome Page 3',
+    subtitle: '"24/7 AI训练师" — 展示AI助手能力，引导用户进入设置流程。',
+    phase: 'onboarding', phaseLabel: '引导流程',
+    screens: ['RKeYH'],
+    features: [
+      { text: 'AI对话预览画面' },
+      { text: '"Get Started" 主按钮替代翻页圆点' },
+      { text: '最后一页，CTA导向品种扫描' },
+    ],
+    flow: { text: '下一步: 品种扫描', target: 'breed-scan' }
+  },
+
+  // ─── Pet Setup ───
+  {
+    id: 'breed-scan', group: 'setup',
+    title: '品种拍照扫描',
+    subtitle: '核心差异化功能入口 — 用户拍照识别狗的品种，这是PawSmart的"哇"时刻。',
+    phase: 'setup', phaseLabel: '宠物设置',
+    screens: ['hbGLq'],
+    features: [
+      { text: '"Let me meet your dog" 亲切文案' },
+      { text: '相机取景框，圆形聚焦区域' },
+      { text: '三个选项: 拍照扫描 / 从相册选 / 手动输入' },
+    ],
+    tags: ['free:免费3次/天', 'premium:无限次'],
+    callout: { title: 'AI指标', text: '≥200个品种，Top-1准确率 ≥85%，Top-3 ≥95%。响应时间 < 3秒。' }
+  },
+  {
+    id: 'breed-result', group: 'setup',
+    title: '品种识别结果',
+    subtitle: '展示AI识别结果，包含品种名、置信度、性格特征和训练建议。',
+    phase: 'setup', phaseLabel: '宠物设置',
+    screens: ['rsCfs'],
+    features: [
+      { text: '品种名 + 置信度百分比 (如 "Golden Retriever 95%")' },
+      { text: '品种特征卡片: 性格、体型、运动需求' },
+      { text: '"Confirm" 确认按钮进入下一步' },
+    ],
+    flow: { text: '下一步: 宠物信息表单', target: 'pet-form' }
+  },
+  {
+    id: 'pet-form', group: 'setup',
+    title: '宠物信息表单',
+    subtitle: '收集宠物基本信息，用于个性化训练计划生成。',
+    phase: 'setup', phaseLabel: '宠物设置',
+    screens: ['eBFfL'],
+    features: [
+      { text: '宠物名字输入' },
+      { text: '年龄选择器 (月龄/岁)' },
+      { text: '性别选择 + 体重输入' },
+    ],
+    callout: { title: '数据用途', text: '这些信息将注入AI助手的对话上下文，实现个性化回答。也用于生成训练计划的基础参数。' }
+  },
+  {
+    id: 'questionnaire', group: 'setup',
+    title: '训练问卷',
+    subtitle: '4道快速问题，了解用户的训练目标、经验和可用时间。',
+    phase: 'setup', phaseLabel: '宠物设置',
+    screens: ['q5JAn'],
+    features: [
+      { text: '多选训练目标 (8个选项: 基础指令、如厕、不扑人等)' },
+      { text: '训练经验等级' },
+      { text: '每日可用训练时间' },
+    ],
+    flow: { text: '下一步: 付费墙', target: 'paywall' }
+  },
+
+  // ─── Conversion ───
+  {
+    id: 'paywall', group: 'conversion',
+    title: '付费墙',
+    subtitle: '软付费墙 — 展示个性化训练计划预览（模糊），引导开始7天免费试用。用户可跳过。',
+    phase: 'conversion', phaseLabel: '转化',
+    screens: ['hhHV2'],
+    features: [
+      { text: '模糊化的个性化训练计划预览' },
+      { text: '免费 vs 高级会员对比表' },
+      { text: '三档定价: 周 $6.99 / 月 $14.99 / 年 $59.99 (推荐)' },
+      { text: '"Start 7-Day Free Trial" 主CTA' },
+      { text: '"Continue Free" 跳过链接 — 不强制付费' },
+    ],
+    tags: ['free:可跳过'],
+    callout: { title: '转化目标', text: 'Paywall → Trial 转化率 ≥ 8%，Trial → Paid 转化率 ≥ 35% (M3)。' },
+    metrics: [
+      { value: '≥8%', label: '试用转化率' },
+      { value: '≥35%', label: '付费转化率' },
+      { value: '$59.99', label: '年费 (推荐)' },
+      { value: '7天', label: '免费试用' },
+    ]
+  },
+
+  // ─── Main Tabs ───
+  {
+    id: 'home', group: 'main',
+    title: '首页',
+    subtitle: '日常核心界面 — 每日AI生成训练任务、连续打卡、快捷工具和推荐内容。',
+    phase: 'main', phaseLabel: '主界面',
+    screens: ['s3qAv'],
+    features: [
+      { text: '问候语 + 宠物名 ("Good morning, Buddy\'s trainer!")' },
+      { text: '连续训练天数条 (Streak Bar)' },
+      { text: '每日训练任务 2-4 项，含进度条和预计时长' },
+      { text: '快捷工具行: AI助手 / 品种扫描 / 响片' },
+      { text: '推荐课程卡片 (基于品种和阶段)' },
+    ],
+    tags: ['free:基础任务', 'premium:完整任务'],
+    flow: { text: '首次打开空态 →', target: 'home-empty' }
+  },
+  {
+    id: 'courses', group: 'main',
+    title: '课程列表',
+    subtitle: '60+ 视频课程库，按5个分类组织，双列瀑布流展示。',
+    phase: 'main', phaseLabel: '主界面',
+    screens: ['kX8Yo'],
+    features: [
+      { text: '5个分类Tab: 全部 / 基础指令 / 幼犬 / 行为纠正 / 进阶' },
+      { text: '双列课程卡片网格 (缩略图 + 标题 + 时长)' },
+      { text: '锁定课程显示🔒图标 + PRO徽章' },
+    ],
+    tags: ['free:7节基础课', 'premium:全部60+'],
+    flow: { text: '点击课程 → 课程详情', target: 'course-detail' }
+  },
+  {
+    id: 'course-detail', group: 'main',
+    title: '课程详情',
+    subtitle: '单个训练课程的完整内容 — 视频 + 分步骤训练指南 + AI品种专属提示。',
+    phase: 'main', phaseLabel: '主界面',
+    screens: ['r72zT'],
+    features: [
+      { text: '视频播放区 (30秒-3分钟短视频)' },
+      { text: '课程标题 + 难度 + 预计时间' },
+      { text: '5步训练步骤列表，含勾选进度' },
+      { text: 'AI Tips 卡片: 基于品种的个性化提示' },
+      { text: '"Start Timer" 开始训练按钮' },
+    ],
+    flow: { text: '开始训练 → 训练中', target: 'training' }
+  },
+  {
+    id: 'training', group: 'main',
+    title: '训练中',
+    subtitle: '倒计时训练界面 — 专注模式，清晰的当前步骤和计次器。',
+    phase: 'main', phaseLabel: '主界面',
+    screens: ['yvq9o'],
+    features: [
+      { text: '大圆形倒计时器 (视觉焦点)' },
+      { text: '当前训练步骤高亮' },
+      { text: '计次器: 完成次数统计' },
+      { text: '"Done" 完成按钮' },
+    ],
+    flow: { text: '完成 → 庆祝弹窗', target: 'celebration' },
+    callout: { title: '交互流程', text: '点击 Done → 弹出庆祝弹窗 → "Next Step" 回到课程详情继续下一步 / "Back to Course" 回到课程详情查看进度。' }
+  },
+  {
+    id: 'celebration', group: 'main',
+    title: '训练完成庆祝',
+    subtitle: '习惯养成的关键时刻 — 必须让完成训练感觉是"奖励"而非"打卡"。竞品 Dogo 和 Woofz 都有庆祝环节。',
+    phase: 'main', phaseLabel: '主界面',
+    screens: ['0n3Hf'],
+    features: [
+      { text: '爪印纷飞动画 🎉 (1.5秒)' },
+      { text: '"Great job, Buddy!" 大标题' },
+      { text: '训练统计: 训练时长 / 完成次数 / 步骤进度' },
+      { text: '首次完成徽章: "First Lesson Complete!" + 奖杯' },
+      { text: '连续打卡更新: "+1 Day Streak"' },
+    ],
+    tags: ['new:设计评审新增'],
+    callout: { title: '为什么重要', text: '这是用户习惯养成的触发器。必须让完成训练感到有成就感，而不是事务性的。这个弹窗直接影响次日留存率。' }
+  },
+
+  // ─── AI ───
+  {
+    id: 'ai-hub', group: 'ai',
+    title: 'AI 中心',
+    subtitle: 'AI 功能入口 — 重新设计了布局，用英雄卡片 + 双功能块替代3个重复卡片，打破AI生成感。',
+    phase: 'ai', phaseLabel: 'AI 功能',
+    screens: ['qyvck'],
+    features: [
+      { text: 'Hero卡片: AI Chat (全宽, 180px, 渐变橙色背景) — 主打功能' },
+      { text: '双功能块: 品种扫描 + 训练计划 (并排, 各有独特底色)' },
+      { text: '打破 "3个相同卡片" 的模板感' },
+    ],
+    tags: ['new:设计评审重新设计'],
+    callout: { title: '反AI模板', text: '原设计是3个一模一样的FeatureCard上下排列 — 这是AI生成界面最容易识别的模式 (#2 on AI slop list)。重新设计为1大2小的层级布局。' }
+  },
+  {
+    id: 'ai-chat', group: 'ai',
+    title: 'AI 训练助手',
+    subtitle: '基于宠物档案的个性化AI对话 — 知道你的狗叫什么、什么品种、多大。',
+    phase: 'ai', phaseLabel: 'AI 功能',
+    screens: ['zhLqW'],
+    features: [
+      { text: '对话头部: 宠物名 + 品种 (上下文注入)' },
+      { text: 'AI气泡: 左对齐灰色，用户气泡: 右对齐橙色' },
+      { text: '课程推荐卡片嵌入对话流' },
+      { text: '底部输入栏 + 发送按钮' },
+    ],
+    tags: ['free:5条/天', 'premium:无限'],
+    callout: { title: 'AI规则', text: '仅正向训练方法。不推荐惩罚训练。不提供兽医诊断。上下文窗口包含宠物档案 + 最近10条对话。' }
+  },
+  {
+    id: 'ai-plan', group: 'ai',
+    title: 'AI 训练计划',
+    subtitle: '自动生成的4-8周个性化训练计划，根据品种、年龄和训练目标定制。',
+    phase: 'ai', phaseLabel: 'AI 功能',
+    screens: ['lHXnk'],
+    features: [
+      { text: '周视图: 每周训练主题和目标' },
+      { text: '每日任务列表: 具体训练内容和时长' },
+      { text: '里程碑标记: 阶段性成就节点' },
+    ],
+    tags: ['premium:仅高级会员']
+  },
+
+  // ─── Profile ───
+  {
+    id: 'pet-profile', group: 'profile',
+    title: '宠物档案',
+    subtitle: '宠物的成长记录 — 头像、基本信息、训练统计和成就徽章。',
+    phase: 'profile', phaseLabel: '个人中心',
+    screens: ['yMNpY'],
+    features: [
+      { text: '宠物头像 + 名字 + 品种 + 年龄' },
+      { text: '训练统计: 完成课程数 / 连续天数 / 徽章数' },
+      { text: '成就系统: 6+徽章 (首步、7日连续、基础大师等)' },
+      { text: '训练日历: 每日训练热力图' },
+    ]
+  },
+  {
+    id: 'settings', group: 'profile',
+    title: '设置',
+    subtitle: '账户设置和订阅管理入口。',
+    phase: 'profile', phaseLabel: '个人中心',
+    screens: ['WI7S8'],
+    features: [
+      { text: '账户信息' },
+      { text: '订阅管理 (点击进入管理页)' },
+      { text: '通知设置' },
+      { text: '帮助与反馈' },
+    ]
+  },
+  {
+    id: 'subscription', group: 'profile',
+    title: '订阅管理',
+    subtitle: '查看当前订阅状态、切换方案、取消订阅。',
+    phase: 'profile', phaseLabel: '个人中心',
+    screens: ['9JIFT'],
+    features: [
+      { text: '当前方案显示 (到期日期、自动续费状态)' },
+      { text: '方案切换选项' },
+      { text: '"Cancel Subscription" 取消链接' },
+    ]
+  },
+
+  // ─── Empty States ───
+  {
+    id: 'home-empty', group: 'empty',
+    title: '首页 · 首次打开',
+    subtitle: '新用户第一天 — 没有训练记录、没有连续天数。需要温暖的引导而不是空白页面。',
+    phase: 'empty', phaseLabel: '空态设计',
+    screens: ['2nu3Z'],
+    compareScreen: 's3qAv',
+    features: [
+      { text: '爪印插画 + "Let\'s start your first training!"' },
+      { text: '"Choose a Course" 主按钮引导到课程列表' },
+      { text: '快捷工具行仍然可用 — 不要完全空白' },
+    ],
+    tags: ['new:设计评审新增'],
+    callout: { title: '设计原则', text: '空态是功能，不是错误。"No items found" 不是设计。每个空态都需要温暖、主行动和上下文。' }
+  },
+  {
+    id: 'courses-empty', group: 'empty',
+    title: '课程列表 · 空态',
+    subtitle: '用户还没有注册任何课程 — 需要低压力的引导开始第一节课。',
+    phase: 'empty', phaseLabel: '空态设计',
+    screens: ['CahSk'],
+    features: [
+      { text: '书本插画 + "Your training journey starts here"' },
+      { text: '"Browse Free Courses" 主按钮' },
+      { text: '"Try a Free Course" 文字链接 — 降低决策压力' },
+    ],
+    tags: ['new:设计评审新增']
+  },
+  {
+    id: 'chat-empty', group: 'empty',
+    title: 'AI 对话 · 首次打开',
+    subtitle: 'AI助手的首次对话 — 不是空白输入框，而是主动问候 + 3个建议话题芯片。',
+    phase: 'empty', phaseLabel: '空态设计',
+    screens: ['osKAy'],
+    features: [
+      { text: 'AI头像 + 问候语: "Hi! I\'m your PawSmart AI trainer..."' },
+      { text: '3个建议话题芯片 (可点击直接发送)' },
+      { text: '话题基于宠物品种个性化: "How do I stop Buddy from pulling?"' },
+    ],
+    tags: ['new:设计评审新增'],
+    callout: { title: '降低使用门槛', text: '第一次面对AI对话框，用户不知道问什么。预设话题芯片把"开放输入"变成"选择输入"，大幅降低使用门槛。' }
+  },
+  {
+    id: 'plan-empty', group: 'empty',
+    title: '训练计划 · 空态',
+    subtitle: '还没有生成训练计划 — 展示AI计划的价值，引导一键生成。',
+    phase: 'empty', phaseLabel: '空态设计',
+    screens: ['w14T2'],
+    features: [
+      { text: '日历插画 + "Get a personalized plan for Buddy"' },
+      { text: '3个价值点: 个性化 / 进度适应 / 每天10分钟' },
+      { text: '"Generate My Plan" 主按钮' },
+    ],
+    tags: ['new:设计评审新增', 'premium:仅高级会员']
+  },
+  {
+    id: 'profile-empty', group: 'empty',
+    title: '宠物档案 · 新用户',
+    subtitle: '刚完成注册的用户 — 所有统计数据为0，需要鼓励而不是空洞的数字。',
+    phase: 'empty', phaseLabel: '空态设计',
+    screens: ['bk3Wc'],
+    features: [
+      { text: '宠物头像 + 基本信息 (已有数据)' },
+      { text: '统计数据全部显示 "0" — 但不是警告色' },
+      { text: '奖杯卡片: "Start training to see your progress here"' },
+      { text: '"Start First Lesson" 主按钮' },
+    ],
+    tags: ['new:设计评审新增']
+  },
+
+  // ─── Summary Slide ───
+  {
+    id: 'summary',
+    title: '评审总结',
+    subtitle: 'PawSmart v1.0 MVP — 产品设计完成度评估和下一步计划',
+    phase: 'main', phaseLabel: '总结',
+    screens: [],
+    features: [
+      { text: '18个核心页面 + 1个庆祝弹窗 + 5个空态变体 = 24个设计稿' },
+      { text: '设计评审 7/10 → 8/10，7个设计决策已确认，0个延期' },
+      { text: '4项评审行动项已全部落地到原型中' },
+      { text: 'WCAG AA 对比度合规 (text-tertiary 已修复)' },
+    ],
+    callout: { title: '下一步', text: 'W4 iOS开发启动 (引导流程 + AI品种扫描优先)。W6 Alpha: 核心流程端到端。W8 Beta测试。W10 上线。' },
+    metrics: [
+      { value: '24', label: '设计稿总数' },
+      { value: '8/10', label: '设计完成度' },
+      { value: '7', label: '设计决策' },
+      { value: '13', label: '复用组件' },
+    ]
+  },
+];
+
+const GROUPS = [
+  { id: 'overview', label: '概述', icon: '📋' },
+  { id: 'strategy', label: '产品策略', icon: '🎯' },
+  { id: 'onboarding', label: '引导流程', icon: '👋' },
+  { id: 'setup', label: '宠物设置', icon: '🐕' },
+  { id: 'conversion', label: '转化', icon: '💳' },
+  { id: 'main', label: '主界面', icon: '🏠' },
+  { id: 'ai', label: 'AI 功能', icon: '✨' },
+  { id: 'profile', label: '个人中心', icon: '👤' },
+  { id: 'empty', label: '空态设计', icon: '📭' },
+  { id: 'summary', label: '总结', icon: '📊' },
+];
+
+const IMG_BASE = 'presentation-assets/';
+
+// ────────────────────────────────────────
+// STATE
+// ────────────────────────────────────────
+let currentSlide = 0;
+let mode = 'present'; // 'present' | 'overview'
+let sidebarOpen = true;
+
+// ────────────────────────────────────────
+// INIT
+// ────────────────────────────────────────
+function init() {
+  buildSidebar();
+  renderSlide(0);
+  buildOverview();
+}
+
+function buildSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  let html = '';
+  let groupMap = {};
+
+  SLIDES.forEach((s, i) => {
+    const g = s.group || s.id;
+    if (!groupMap[g]) groupMap[g] = [];
+    groupMap[g].push({ slide: s, index: i });
+  });
+
+  GROUPS.forEach(g => {
+    const items = groupMap[g.id];
+    if (!items) return;
+    html += `<div class="nav-group">
+      <div class="nav-group-title">${g.icon} ${g.label}</div>`;
+    items.forEach(({ slide, index }) => {
+      const label = slide.title;
+      html += `<div class="nav-item" data-index="${index}" onclick="goTo(${index})">
+        <span class="num">${index + 1}</span> ${label}
+      </div>`;
+    });
+    html += `</div>`;
+  });
+
+  nav.innerHTML = html;
+}
+
+// ────────────────────────────────────────
+// RENDER SLIDE
+// ────────────────────────────────────────
+function renderSlide(index) {
+  currentSlide = index;
+  const slide = SLIDES[index];
+  const view = document.getElementById('slideView');
+
+  // ─── Diagram slides (full-width, no phone frame) ───
+  if (slide.type === 'persona') {
+    let cards = '';
+    slide.personas.forEach(p => {
+      const pClass = p.primary ? ' primary' : '';
+      let traits = '';
+      p.traits.forEach(t => { traits += `<span class="persona-trait">${t}</span>`; });
+      cards += `<div class="persona-card${pClass}">
+        <span class="share-badge">${p.share}</span>
+        <div class="persona-avatar">${p.emoji}</div>
+        <div class="persona-name">${p.name}</div>
+        <div class="persona-demo">${p.demo}</div>
+        <div class="persona-need">${p.need}</div>
+        <div class="persona-traits">${traits}</div>
+      </div>`;
+    });
+    view.innerHTML = `<div class="diagram-canvas">
+      <div class="diagram-title-row">
+        <div class="slide-phase ${slide.phase}">${slide.phaseLabel}</div>
+      </div>
+      <h2 class="slide-title" style="align-self:flex-start">${slide.title}</h2>
+      <p class="diagram-desc">${slide.subtitle}</p>
+      <div class="persona-grid">${cards}</div>
+    </div>`;
+    updateNav(index, slide);
+    return;
+  }
+
+  if (slide.type === 'architecture') {
+    let tabBar = '';
+    slide.archTabs.forEach((t, i) => {
+      tabBar += `<div class="arch-tab-icon${i === 0 ? ' active' : ''}">
+        <div class="arch-tab-circle" style="background:${t.color}">${t.icon}</div>
+        <span class="arch-tab-label">${t.label}</span>
+      </div>`;
+    });
+    let cols = '';
+    slide.archColumns.forEach(c => {
+      let feats = '';
+      c.features.forEach(f => {
+        const badge = f.badge ? `<span class="badge-sm ${f.badge}">${f.badge === 'free' ? '免费' : f.badge === 'pro' ? 'PRO' : 'v1.1'}</span>` : '';
+        feats += `<div class="arch-feat"><span class="dot ${c.dotClass}"></span>${f.text}${badge}</div>`;
+      });
+      cols += `<div class="arch-column">
+        <div class="arch-col-header ${c.headerClass}"><span class="arch-col-icon">${c.icon}</span><span class="arch-col-title">${c.title}</span></div>
+        ${feats}
+      </div>`;
+    });
+    let infra = '';
+    slide.archInfra.forEach(i => { infra += `<div class="arch-infra-item"><span class="icon">${i.icon}</span>${i.text}</div>`; });
+    view.innerHTML = `<div class="diagram-canvas">
+      <div class="diagram-title-row">
+        <div class="slide-phase ${slide.phase}">${slide.phaseLabel}</div>
+      </div>
+      <h2 class="slide-title" style="align-self:flex-start">${slide.title}</h2>
+      <p class="diagram-desc">${slide.subtitle}</p>
+      <div class="arch-wrapper">
+        <div class="arch-top-bar">${tabBar}</div>
+        <div class="arch-columns">${cols}</div>
+        <div class="arch-infra">${infra}</div>
+      </div>
+    </div>`;
+    updateNav(index, slide);
+    return;
+  }
+
+  if (slide.type === 'journey') {
+    let phases = '';
+    slide.journeyPhases.forEach(p => {
+      let actions = '';
+      p.actions.forEach(a => { actions += `<div class="journey-action">${a}</div>`; });
+      phases += `<div class="journey-phase">
+        <div class="journey-phase-header ${p.headerClass}">${p.name}</div>
+        <div class="journey-body">
+          <div class="journey-section-label">用户行为</div>
+          ${actions}
+          <div class="journey-section-label">情绪</div>
+          <div class="journey-emotion"><span class="emoji">${p.emotion.emoji}</span><span style="color:${p.emotion.color}">${p.emotion.text}</span></div>
+          <div class="journey-section-label">关键触点</div>
+          <div class="journey-touchpoint">${p.touchpoint}</div>
+          <div class="journey-section-label">痛点 / 机会</div>
+          <div class="journey-pain">⚠ ${p.pain}</div>
+        </div>
+      </div>`;
+    });
+    view.innerHTML = `<div class="diagram-canvas">
+      <div class="diagram-title-row">
+        <div class="slide-phase ${slide.phase}">${slide.phaseLabel}</div>
+      </div>
+      <h2 class="slide-title" style="align-self:flex-start">${slide.title}</h2>
+      <p class="diagram-desc">${slide.subtitle}</p>
+      <div class="journey-wrapper">
+        <div class="journey-arrow-row"><div class="arrow-line"></div><span class="arrow-head">▶</span></div>
+        <div class="journey-arrow-label">用户旅程时间线 — 从发现到留存</div>
+        <div class="journey-track">${phases}</div>
+      </div>
+    </div>`;
+    updateNav(index, slide);
+    return;
+  }
+
+  // Phone(s)
+  let phoneHTML = '';
+  if (slide.screens.length === 0) {
+    // No phone — title/summary slides
+    phoneHTML = '';
+  } else if (slide.compareScreen) {
+    // Compare: normal + empty side by side
+    phoneHTML = `<div class="phone-pair">
+      <div class="phone-frame small">
+        <div class="phone-inner"><img src="${IMG_BASE}${slide.compareScreen}.png" alt="正常态" loading="lazy"></div>
+        <div class="phone-label">正常态</div>
+      </div>
+      <div class="phone-frame small">
+        <div class="phone-inner"><img src="${IMG_BASE}${slide.screens[0]}.png" alt="空态" loading="lazy"></div>
+        <div class="phone-label">首次打开</div>
+      </div>
+    </div>`;
+  } else {
+    phoneHTML = `<div class="phone-frame">
+      <div class="phone-inner"><img src="${IMG_BASE}${slide.screens[0]}.png" alt="${slide.title}" loading="lazy"></div>
+    </div>`;
+  }
+
+  // Tags
+  let tagsHTML = '';
+  if (slide.tags) {
+    tagsHTML = '<div style="margin-bottom:12px">';
+    slide.tags.forEach(t => {
+      const [cls, label] = t.split(':');
+      tagsHTML += `<span class="slide-tag ${cls}">${label}</span>`;
+    });
+    tagsHTML += '</div>';
+  }
+
+  // Features
+  let featuresHTML = '';
+  if (slide.features) {
+    featuresHTML = '<ul class="slide-features">';
+    slide.features.forEach(f => {
+      featuresHTML += `<li><span>${f.text}</span></li>`;
+    });
+    featuresHTML += '</ul>';
+  }
+
+  // Callout
+  let calloutHTML = '';
+  if (slide.callout) {
+    calloutHTML = `<div class="slide-callout">
+      <div class="slide-callout-title">${slide.callout.title}</div>
+      <p>${slide.callout.text}</p>
+    </div>`;
+  }
+
+  // Metrics
+  let metricsHTML = '';
+  if (slide.metrics) {
+    metricsHTML = '<div class="slide-metrics">';
+    slide.metrics.forEach(m => {
+      metricsHTML += `<div class="metric-card"><div class="value">${m.value}</div><div class="label">${m.label}</div></div>`;
+    });
+    metricsHTML += '</div>';
+  }
+
+  // Flow arrow
+  let flowHTML = '';
+  if (slide.flow) {
+    const targetIdx = SLIDES.findIndex(s => s.id === slide.flow.target);
+    flowHTML = `<div class="flow-arrow">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="dest" onclick="goTo(${targetIdx})">${slide.flow.text}</span>
+    </div>`;
+  }
+
+  view.innerHTML = `
+    ${phoneHTML}
+    <div class="slide-info" key="${index}">
+      <div class="slide-phase ${slide.phase}">${slide.phaseLabel}</div>
+      <h2 class="slide-title">${slide.title}</h2>
+      <p class="slide-subtitle">${slide.subtitle}</p>
+      ${tagsHTML}
+      ${featuresHTML}
+      ${metricsHTML}
+      ${calloutHTML}
+      ${flowHTML}
+    </div>
+  `;
+
+  updateNav(index, slide);
+}
+
+function updateNav(index, slide) {
+  // Update sidebar
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', parseInt(el.dataset.index) === index);
+  });
+  const activeItem = document.querySelector('.nav-item.active');
+  if (activeItem) activeItem.scrollIntoView({ block: 'nearest' });
+
+  // Breadcrumb
+  const groupInfo = GROUPS.find(g => g.id === (slide.group || slide.id));
+  document.getElementById('breadcrumb').innerHTML =
+    `${groupInfo ? groupInfo.icon + ' ' + groupInfo.label : ''} <strong>${slide.title}</strong> &nbsp;·&nbsp; ${index + 1}/${SLIDES.length}`;
+
+  // Progress
+  document.getElementById('progressFill').style.width =
+    `${((index + 1) / SLIDES.length) * 100}%`;
+}
+
+// ────────────────────────────────────────
+// OVERVIEW GRID
+// ────────────────────────────────────────
+function buildOverview() {
+  const grid = document.getElementById('overviewGrid');
+  let html = '';
+
+  const diagramIcons = { persona: '👥', architecture: '🏗️', journey: '🗺️' };
+
+  GROUPS.forEach(g => {
+    const items = SLIDES.filter(s => (s.group || s.id) === g.id && (s.screens.length > 0 || s.type));
+    if (items.length === 0) return;
+
+    const countLabel = items.some(s => s.type) ? `${items.length} slides` : `${items.length} screens`;
+    html += `<div class="grid-section-title">${g.icon} ${g.label} <span class="badge">${countLabel}</span></div>`;
+    html += '<div class="screen-grid">';
+    items.forEach(s => {
+      const idx = SLIDES.indexOf(s);
+      if (s.type) {
+        // Diagram slide — show an icon card instead of screenshot
+        html += `<div class="screen-thumb" onclick="goTo(${idx}); setMode('present');" style="display:flex;align-items:center;justify-content:center;min-height:200px;background:linear-gradient(135deg,var(--primary-light),var(--accent-light));">
+          <div style="text-align:center;padding:20px;">
+            <div style="font-size:40px;margin-bottom:8px;">${diagramIcons[s.type] || '📊'}</div>
+            <div class="screen-thumb-label" style="padding:0;font-size:13px;font-weight:700;color:var(--text-primary);">${s.title}</div>
+          </div>
+        </div>`;
+      } else {
+        html += `<div class="screen-thumb" onclick="goTo(${idx}); setMode('present');">
+          <img src="${IMG_BASE}${s.screens[0]}.png" alt="${s.title}" loading="lazy">
+          <div class="screen-thumb-label">${s.title}</div>
+        </div>`;
+      }
+    });
+    html += '</div>';
+  });
+
+  grid.innerHTML = html;
+}
+
+// ────────────────────────────────────────
+// NAVIGATION
+// ────────────────────────────────────────
+function navigate(dir) {
+  const next = currentSlide + dir;
+  if (next >= 0 && next < SLIDES.length) {
+    goTo(next);
+  }
+}
+
+function goTo(index) {
+  if (mode !== 'present') setMode('present');
+  renderSlide(index);
+}
+
+function setMode(m) {
+  mode = m;
+  const sv = document.getElementById('slideView');
+  const og = document.getElementById('overviewGrid');
+  const bp = document.getElementById('btnPresent');
+  const bo = document.getElementById('btnOverview');
+  const mt = document.getElementById('modeTag');
+
+  if (m === 'present') {
+    sv.classList.remove('hidden');
+    og.classList.remove('active');
+    bp.classList.add('active');
+    bo.classList.remove('active');
+    mt.className = 'mode-indicator present';
+    mt.textContent = 'PRESENT';
+    renderSlide(currentSlide);
+  } else {
+    sv.classList.add('hidden');
+    og.classList.add('active');
+    bp.classList.remove('active');
+    bo.classList.add('active');
+    mt.className = 'mode-indicator explore';
+    mt.textContent = 'OVERVIEW';
+  }
+}
+
+// Sidebar toggle
+document.getElementById('toggleSidebar').addEventListener('click', () => {
+  sidebarOpen = !sidebarOpen;
+  document.getElementById('sidebar').classList.toggle('collapsed', !sidebarOpen);
+  document.getElementById('main').classList.toggle('expanded', !sidebarOpen);
+});
+
+// ────────────────────────────────────────
+// KEYBOARD
+// ────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); navigate(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); navigate(-1); }
+  if (e.key === 'g' || e.key === 'G') { setMode(mode === 'present' ? 'overview' : 'present'); }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+  if (e.key === 'Escape') {
+    if (document.fullscreenElement) document.exitFullscreen();
+  }
+});
+
+// Touch swipe
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const diff = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(diff) > 60) navigate(diff < 0 ? 1 : -1);
+});
+
+// Start
+init();
+</script>
+</body>
+</html>
