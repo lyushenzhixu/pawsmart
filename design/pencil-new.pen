@@ -129,7 +129,7 @@
                   "fill": "#FFFFFF",
                   "content": "HOME",
                   "fontFamily": "DM Sans",
-                  "fontSize": 10,
+                  "fontSize": 11,
                   "fontWeight": "600",
                   "letterSpacing": 0.5
                 }
@@ -164,7 +164,7 @@
                   "fill": "$text-tertiary",
                   "content": "COURSES",
                   "fontFamily": "DM Sans",
-                  "fontSize": 10,
+                  "fontSize": 11,
                   "fontWeight": "600",
                   "letterSpacing": 0.5
                 }
@@ -199,7 +199,7 @@
                   "fill": "$text-tertiary",
                   "content": "AI",
                   "fontFamily": "DM Sans",
-                  "fontSize": 10,
+                  "fontSize": 11,
                   "fontWeight": "600",
                   "letterSpacing": 0.5
                 }
@@ -234,7 +234,7 @@
                   "fill": "$text-tertiary",
                   "content": "PROFILE",
                   "fontFamily": "DM Sans",
-                  "fontSize": 10,
+                  "fontSize": 11,
                   "fontWeight": "600",
                   "letterSpacing": 0.5
                 }
@@ -3893,11 +3893,11 @@
             },
             "9Osjb": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -3907,11 +3907,11 @@
             },
             "L6Nrr": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "width": "fill_container",
@@ -3921,11 +3921,11 @@
             },
             "UWdP4": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -3935,11 +3935,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -4446,12 +4446,12 @@
             "9Osjb": {
               "fill": "#6b7280",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
               "fill": "#6b7280",
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "fill": "#FF7A3D",
@@ -4463,12 +4463,12 @@
             "L6Nrr": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
               "fill": "#FFFFFF",
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "width": "fill_container",
@@ -4478,11 +4478,11 @@
             },
             "UWdP4": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -4492,11 +4492,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -5038,12 +5038,12 @@
             "9Osjb": {
               "fill": "#6b7280",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
               "fill": "#6b7280",
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "fill": "#FF7A3D",
@@ -5055,12 +5055,12 @@
             "L6Nrr": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
               "fill": "#FFFFFF",
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "width": "fill_container",
@@ -5070,11 +5070,11 @@
             },
             "UWdP4": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -5084,11 +5084,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -5576,7 +5576,7 @@
                   "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$primary"
                   },
                   "layout": "vertical",
                   "gap": 12,
@@ -5588,7 +5588,7 @@
                       "name": "tile1Icon",
                       "width": 44,
                       "height": 44,
-                      "fill": "#FFF3ED",
+                      "fill": "$primary-gradient-end",
                       "cornerRadius": 12,
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -5601,7 +5601,7 @@
                           "height": 22,
                           "iconFontName": "scan",
                           "iconFontFamily": "lucide",
-                          "fill": "#FF7A3D"
+                          "fill": "#FFFFFF"
                         }
                       ]
                     },
@@ -5638,7 +5638,7 @@
                   "cornerRadius": 20,
                   "stroke": {
                     "thickness": 1,
-                    "fill": "#E5E7EB"
+                    "fill": "$primary"
                   },
                   "layout": "vertical",
                   "gap": 12,
@@ -5650,7 +5650,7 @@
                       "name": "tile2Icon",
                       "width": 44,
                       "height": 44,
-                      "fill": "#F0FDF4",
+                      "fill": "$primary-gradient-end",
                       "cornerRadius": 12,
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -5663,7 +5663,7 @@
                           "height": 22,
                           "iconFontName": "calendar",
                           "iconFontFamily": "lucide",
-                          "fill": "#22C55E"
+                          "fill": "#FFFFFF"
                         }
                       ]
                     },
@@ -5718,12 +5718,12 @@
             "9Osjb": {
               "fill": "#6b7280",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
               "fill": "#6b7280",
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -5733,11 +5733,11 @@
             },
             "L6Nrr": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "fill": "#FF7A3D",
@@ -5749,12 +5749,12 @@
             "UWdP4": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
               "fill": "#FFFFFF",
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -5764,11 +5764,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -5843,7 +5843,7 @@
               "name": "chatAvatar",
               "width": 36,
               "height": 36,
-              "fill": "#2D3B8A",
+              "fill": "$primary-gradient-start",
               "cornerRadius": 999,
               "layout": "vertical",
               "justifyContent": "center",
@@ -6135,12 +6135,12 @@
             "9Osjb": {
               "fill": "#6b7280",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
               "fill": "#6b7280",
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -6150,11 +6150,11 @@
             },
             "L6Nrr": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "fill": "#FF7A3D",
@@ -6166,12 +6166,12 @@
             "UWdP4": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
               "fill": "#FFFFFF",
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -6181,11 +6181,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -6290,6 +6290,10 @@
               "width": "fill_container",
               "fill": "#FFF3ED",
               "cornerRadius": 20,
+              "stroke": {
+                "thickness": 1.5,
+                "fill": "$primary"
+              },
               "layout": "vertical",
               "gap": 12,
               "padding": 16,
@@ -6788,12 +6792,12 @@
             "9Osjb": {
               "fill": "#6b7280",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
               "fill": "#6b7280",
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -6803,11 +6807,11 @@
             },
             "L6Nrr": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "fill": "#FF7A3D",
@@ -6819,12 +6823,12 @@
             "UWdP4": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
               "fill": "#FFFFFF",
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -6834,11 +6838,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -7637,12 +7641,12 @@
             "9Osjb": {
               "fill": "#6b7280",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
               "fill": "#6b7280",
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -7652,11 +7656,11 @@
             },
             "L6Nrr": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "width": "fill_container",
@@ -7666,11 +7670,11 @@
             },
             "UWdP4": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "fill": "#FF7A3D",
@@ -7682,12 +7686,12 @@
             "9wNEO": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
               "fill": "#FFFFFF",
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -8205,12 +8209,12 @@
             "9Osjb": {
               "fill": "#6b7280",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
               "fill": "#6b7280",
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -8220,11 +8224,11 @@
             },
             "L6Nrr": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "width": "fill_container",
@@ -8234,11 +8238,11 @@
             },
             "UWdP4": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "fill": "#FF7A3D",
@@ -8250,12 +8254,12 @@
             "9wNEO": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
               "fill": "#FFFFFF",
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -9095,7 +9099,7 @@
     {
       "type": "frame",
       "id": "2nu3Z",
-      "x": 0,
+      "x": 453,
       "y": 2760,
       "name": "9b · Home (First Time)",
       "clip": true,
@@ -9395,11 +9399,11 @@
             "9Osjb": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -9409,11 +9413,11 @@
             },
             "L6Nrr": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "width": "fill_container",
@@ -9423,12 +9427,12 @@
             },
             "UWdP4": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
               "fill": "#FFFFFF",
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -9438,11 +9442,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -9451,7 +9455,7 @@
     {
       "type": "frame",
       "id": "CahSk",
-      "x": 453,
+      "x": 906,
       "y": 2760,
       "name": "10b · Courses (Empty)",
       "clip": true,
@@ -9657,11 +9661,11 @@
             },
             "9Osjb": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "fill": "#FF7A3D",
@@ -9672,11 +9676,11 @@
             },
             "L6Nrr": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "width": "fill_container",
@@ -9686,11 +9690,11 @@
             },
             "UWdP4": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -9701,12 +9705,12 @@
             "9wNEO": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
               "fill": "#FFFFFF",
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -9715,7 +9719,7 @@
     {
       "type": "frame",
       "id": "osKAy",
-      "x": 906,
+      "x": 1359,
       "y": 2760,
       "name": "14b · AI Chat (First Message)",
       "clip": true,
@@ -9781,7 +9785,7 @@
               "name": "aiAvatar",
               "width": 36,
               "height": 36,
-              "fill": "#FF7A3D",
+              "fill": "$primary-gradient-start",
               "cornerRadius": 999,
               "justifyContent": "center",
               "alignItems": "center",
@@ -9851,7 +9855,7 @@
               "name": "aiLargeAvatar",
               "width": 72,
               "height": 72,
-              "fill": "#FFF3ED",
+              "fill": "$primary-gradient-end",
               "cornerRadius": 999,
               "justifyContent": "center",
               "alignItems": "center",
@@ -9864,7 +9868,7 @@
                   "height": 32,
                   "iconFontName": "sparkles",
                   "iconFontFamily": "lucide",
-                  "fill": "#FF7A3D"
+                  "fill": "#FFFFFF"
                 }
               ]
             },
@@ -10080,11 +10084,11 @@
             },
             "9Osjb": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -10095,11 +10099,11 @@
             "L6Nrr": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "fill": "#FF7A3D",
@@ -10111,11 +10115,11 @@
             "UWdP4": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -10125,11 +10129,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -10138,7 +10142,7 @@
     {
       "type": "frame",
       "id": "w14T2",
-      "x": 1359,
+      "x": 1812,
       "y": 2760,
       "name": "15b · Training Plan (Empty)",
       "clip": true,
@@ -10412,11 +10416,11 @@
             },
             "9Osjb": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -10427,11 +10431,11 @@
             "L6Nrr": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "fill": "#FF7A3D",
@@ -10443,11 +10447,11 @@
             "UWdP4": {
               "fill": "#FFFFFF",
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "width": "fill_container",
@@ -10457,11 +10461,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -10470,7 +10474,7 @@
     {
       "type": "frame",
       "id": "bk3Wc",
-      "x": 1812,
+      "x": 2265,
       "y": 2760,
       "name": "16b · Pet Profile (New User)",
       "clip": true,
@@ -10824,12 +10828,12 @@
             },
             "9Osjb": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "J8wdd": {
               "fill": "#FFFFFF",
-              "x": 26.875,
-              "y": 31.5
+              "x": 25.375,
+              "y": 31
             },
             "2frR4": {
               "width": "fill_container",
@@ -10839,12 +10843,12 @@
             },
             "L6Nrr": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "3Qwsm": {
               "fill": "#FFFFFF",
-              "x": 17.875,
-              "y": 31.5
+              "x": 15.875,
+              "y": 31
             },
             "DZ4Yf": {
               "width": "fill_container",
@@ -10854,11 +10858,11 @@
             },
             "UWdP4": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "cU3gC": {
-              "x": 37.375,
-              "y": 31.5
+              "x": 36.875,
+              "y": 31
             },
             "KQfGV": {
               "fill": "#FF7A3D",
@@ -10869,11 +10873,11 @@
             },
             "9wNEO": {
               "x": 33.875,
-              "y": 9.5
+              "y": 9
             },
             "0rEBy": {
-              "x": 20.875,
-              "y": 31.5
+              "x": 18.875,
+              "y": 31
             }
           }
         }
@@ -10882,9 +10886,9 @@
     {
       "type": "frame",
       "id": "WYdit",
-      "x": 3171,
-      "y": 0,
-      "name": "3.5 · Login",
+      "x": 0,
+      "y": 2760,
+      "name": "19 · Login / Sign Up",
       "clip": true,
       "width": 393,
       "height": 852,
@@ -10897,7 +10901,25 @@
           "ref": "rck7k",
           "width": "fill_container",
           "name": "sb",
-          "x": 0
+          "x": 0,
+          "descendants": {
+            "Kxpra": {
+              "x": 20,
+              "y": 22
+            },
+            "16IdW": {
+              "width": "fit_content",
+              "height": "fit_content",
+              "x": 313,
+              "y": 23
+            },
+            "bR1N0": {
+              "x": 22
+            },
+            "A7HHz": {
+              "x": 44
+            }
+          }
         },
         {
           "type": "frame",
@@ -11075,12 +11097,19 @@
                   "name": "emailInput",
                   "x": 0,
                   "y": 108,
+                  "height": "fit_content",
                   "descendants": {
                     "KUFYR": {
                       "content": "Email"
                     },
+                    "Y2lea": {
+                      "width": "fill_container",
+                      "y": 25
+                    },
                     "6i5nd": {
-                      "content": "you@example.com"
+                      "content": "you@example.com",
+                      "x": 16,
+                      "y": 14
                     }
                   }
                 },
@@ -11092,12 +11121,19 @@
                   "name": "passInput",
                   "x": 0,
                   "y": 197,
+                  "height": "fit_content",
                   "descendants": {
                     "KUFYR": {
                       "content": "Password"
                     },
+                    "Y2lea": {
+                      "width": "fill_container",
+                      "y": 25
+                    },
                     "6i5nd": {
-                      "content": "••••••••"
+                      "content": "••••••••",
+                      "x": 16,
+                      "y": 14
                     }
                   }
                 },
@@ -11111,7 +11147,9 @@
                   "y": 286,
                   "descendants": {
                     "k7sgc": {
-                      "content": "Continue"
+                      "content": "Continue",
+                      "x": 140.5,
+                      "y": 17.5
                     }
                   }
                 }
@@ -11147,15 +11185,526 @@
                   "name": "skipBtn",
                   "x": 72.5,
                   "y": 46,
+                  "width": "fit_content",
+                  "height": "fit_content",
                   "descendants": {
                     "nIDo0": {
-                      "content": "Continue without account"
+                      "content": "Continue without account",
+                      "x": 16,
+                      "y": 8
                     }
                   }
                 }
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "rAbuJ",
+      "x": 2718,
+      "y": 2760,
+      "name": "25 · Course Detail — Locked",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "W5hjE",
+          "type": "ref",
+          "ref": "rck7k",
+          "width": "fill_container",
+          "x": 0,
+          "name": "sb25",
+          "descendants": {
+            "Kxpra": {
+              "x": 20,
+              "y": 22
+            },
+            "16IdW": {
+              "height": "fit_content",
+              "width": "fit_content",
+              "x": 313,
+              "y": 23
+            },
+            "bR1N0": {
+              "x": 22
+            },
+            "A7HHz": {
+              "x": 44
+            }
+          }
+        },
+        {
+          "type": "frame",
+          "id": "1tLgJ",
+          "name": "content",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            0,
+            20,
+            12,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "iYS4X",
+              "name": "back-row",
+              "width": "fill_container",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "EyND3",
+                  "name": "backIcon",
+                  "width": 24,
+                  "height": 24,
+                  "iconFontName": "arrow-left",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-primary"
+                },
+                {
+                  "type": "text",
+                  "id": "GIvnR",
+                  "name": "backTitle",
+                  "fill": "$text-primary",
+                  "content": "Course Detail",
+                  "fontFamily": "DM Sans",
+                  "fontSize": 18,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "geJhL",
+              "name": "video-locked",
+              "width": "fill_container",
+              "height": 200,
+              "fill": "#F6F7F8",
+              "cornerRadius": 16,
+              "layout": "vertical",
+              "gap": 8,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "9325n",
+                  "name": "lockIcon",
+                  "width": 32,
+                  "height": 32,
+                  "iconFontName": "lock",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "q7Y7x",
+                  "name": "lockLabel",
+                  "fill": "$text-secondary",
+                  "content": "Premium Content",
+                  "fontFamily": "DM Sans",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "9mzcw",
+              "name": "title-meta",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "bthSA",
+                  "name": "courseTitle",
+                  "fill": "$text-primary",
+                  "content": "Advanced Recall Training",
+                  "fontFamily": "DM Sans",
+                  "fontSize": 22,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "KjXvQ",
+                  "name": "meta-row",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "9SdmE",
+                      "name": "metaDur",
+                      "fill": "$text-secondary",
+                      "content": "12 min",
+                      "fontFamily": "DM Sans",
+                      "fontSize": 13
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "o163Y",
+                      "name": "metaDot",
+                      "fill": "$text-secondary",
+                      "width": 4,
+                      "height": 4
+                    },
+                    {
+                      "type": "text",
+                      "id": "2hDUP",
+                      "name": "metaLevel",
+                      "fill": "$text-secondary",
+                      "content": "Intermediate",
+                      "fontFamily": "DM Sans",
+                      "fontSize": 13
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "3Ccw7",
+              "name": "locked-steps",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "bvSmq",
+                  "name": "stepsTitle",
+                  "fill": "$text-primary",
+                  "content": "Training Steps",
+                  "fontFamily": "DM Sans",
+                  "fontSize": 16,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "fdqMZ",
+                  "name": "step1-locked",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border"
+                  },
+                  "gap": 12,
+                  "padding": [
+                    12,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ik8s5",
+                      "name": "s1Num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "$border",
+                      "cornerRadius": 999,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "hE7AR",
+                          "name": "s1icon",
+                          "width": 14,
+                          "height": 14,
+                          "iconFontName": "lock",
+                          "iconFontFamily": "lucide",
+                          "fill": "$text-secondary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "NpI3p",
+                      "name": "s1Text",
+                      "fill": "$text-tertiary",
+                      "content": "Hold position for 10 seconds",
+                      "fontFamily": "DM Sans",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gmpwI",
+                  "name": "step2-locked",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border"
+                  },
+                  "gap": 12,
+                  "padding": [
+                    12,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "dZsW0",
+                      "name": "s2Num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "$border",
+                      "cornerRadius": 999,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "cPqk7",
+                          "name": "s2icon",
+                          "width": 14,
+                          "height": 14,
+                          "iconFontName": "lock",
+                          "iconFontFamily": "lucide",
+                          "fill": "$text-secondary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "6J9CP",
+                      "name": "s2Text",
+                      "fill": "$text-tertiary",
+                      "content": "Add distance gradually",
+                      "fontFamily": "DM Sans",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "kGduE",
+                  "name": "step3-locked",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border"
+                  },
+                  "gap": 12,
+                  "padding": [
+                    12,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "fmHI6",
+                      "name": "s3Num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "$border",
+                      "cornerRadius": 999,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "pcnzX",
+                          "name": "s3icon",
+                          "width": 14,
+                          "height": 14,
+                          "iconFontName": "lock",
+                          "iconFontFamily": "lucide",
+                          "fill": "$text-secondary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "t1zqc",
+                      "name": "s3Text",
+                      "fill": "$text-tertiary",
+                      "content": "Practice with distractions",
+                      "fontFamily": "DM Sans",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Di0tU",
+              "name": "premium-banner",
+              "width": "fill_container",
+              "fill": "$primary-light",
+              "cornerRadius": 20,
+              "stroke": {
+                "thickness": 1.5,
+                "fill": "$primary"
+              },
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "05RFM",
+                  "name": "banner-header",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "4IKqS",
+                      "name": "bannerIcon",
+                      "width": 20,
+                      "height": 20,
+                      "iconFontName": "crown",
+                      "iconFontFamily": "lucide",
+                      "fill": "$primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "UKWzs",
+                      "name": "bannerTitle",
+                      "fill": "$primary",
+                      "content": "Unlock Premium Content",
+                      "fontFamily": "DM Sans",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "vgtOF",
+                  "name": "bannerDesc",
+                  "fill": "$text-secondary",
+                  "content": "Get access to all 60 courses, unlimited AI coaching, and personalized training plans.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "DM Sans",
+                  "fontSize": 13
+                }
+              ]
+            },
+            {
+              "id": "6ENUV",
+              "type": "ref",
+              "ref": "0OVvP",
+              "width": "fill_container",
+              "name": "unlockBtn",
+              "x": 20,
+              "y": 646,
+              "descendants": {
+                "k7sgc": {
+                  "content": "Unlock with Premium"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "WnhSU",
+          "type": "ref",
+          "ref": "FR4Ln",
+          "name": "TabBar-Courses",
+          "x": 0,
+          "y": 757,
+          "width": 393,
+          "descendants": {
+            "eCK9D": {
+              "width": "fill_container",
+              "x": 21,
+              "y": 12
+            },
+            "kgJ9D": {
+              "fill": "#00000000",
+              "height": "fill_container",
+              "width": "fill_container",
+              "x": 4,
+              "y": 4
+            },
+            "9Osjb": {
+              "fill": "#6b7280",
+              "x": 33.875,
+              "y": 9
+            },
+            "J8wdd": {
+              "fill": "#6b7280",
+              "x": 25.375,
+              "y": 31
+            },
+            "2frR4": {
+              "fill": "#FF7A3D",
+              "height": "fill_container",
+              "width": "fill_container",
+              "x": 89.75,
+              "y": 4
+            },
+            "L6Nrr": {
+              "fill": "#FFFFFF",
+              "x": 33.875,
+              "y": 9
+            },
+            "3Qwsm": {
+              "fill": "#FFFFFF",
+              "x": 15.875,
+              "y": 31
+            },
+            "DZ4Yf": {
+              "height": "fill_container",
+              "width": "fill_container",
+              "x": 175.5,
+              "y": 4
+            },
+            "UWdP4": {
+              "x": 33.875,
+              "y": 9
+            },
+            "cU3gC": {
+              "x": 36.875,
+              "y": 31
+            },
+            "KQfGV": {
+              "height": "fill_container",
+              "width": "fill_container",
+              "x": 261.25,
+              "y": 4
+            },
+            "9wNEO": {
+              "x": 33.875,
+              "y": 9
+            },
+            "0rEBy": {
+              "x": 18.875,
+              "y": 31
+            }
+          }
         }
       ]
     }
@@ -11228,6 +11777,14 @@
     "warning-light": {
       "type": "color",
       "value": "#FFFBEB"
+    },
+    "primary-gradient-end": {
+      "type": "color",
+      "value": "#FF9A5C"
+    },
+    "primary-gradient-start": {
+      "type": "color",
+      "value": "#FF7A3D"
     }
   }
 }
